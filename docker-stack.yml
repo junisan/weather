@@ -1,0 +1,27 @@
+version: "3.8"
+
+networks:
+  weather:
+  influx:
+    driver: overlay
+    external: true
+    name: influx
+
+services:
+  cache:
+    image: registry.juannicolas.eu/weather
+    env_file: .env
+    deploy:
+      mode: replicated
+      replicas: 1
+      placement:
+        preferences:
+          - spread: node.labels.experiments
+      restart_policy:
+        delay: 5s
+        max_attempts: 3
+        window: 30s
+        condition: any
+    networks:
+      - weather
+      - influx

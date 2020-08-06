@@ -9,7 +9,7 @@ networks:
 
 services:
   cache:
-    image: registry.juannicolas.eu/weather
+    image: registry.juannicolas.eu/juanni/weather
     env_file: .env
     deploy:
       mode: replicated
